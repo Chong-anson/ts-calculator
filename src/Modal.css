@@ -1,0 +1,15 @@
+.modal {
+  position: fixed;
+  background-color: aqua;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+}
+
+.inside {
+    width: 250px;
+    height: 350px;
+}
