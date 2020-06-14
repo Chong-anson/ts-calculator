@@ -3,10 +3,11 @@ import './App.css';
 import { Modal } from "./Modal"
 import { setGlobalState } from "react-global-state-hook"
 
+
 function App() {
   const [value, setValue] = useState(""); // return an array obj
 
-  const changeValue = (e) => {
+  const changeValue = (e: React.MouseEvent<HTMLInputElement>) => {
     if (value.length === 0 && e.target.innerText.match(/[+\-×÷]/)) {
       return 
     }
@@ -21,25 +22,24 @@ function App() {
   }
 
   const calculate = (e) => {
-    const number: any[] = value.split(/[+\-×÷]/).map(el => parseFloat(el))
-    const operator: string[] = value.split(/[0-9\.]+|/).slice(1, number.length);
-    let ans: any[] = [number[0]]
-    let i = 0
+    const nums: number[] = value.split(/[+\-×÷]/).map(el => parseFloat(el))
+    const operator: string[] = value.split(/[0-9\.]+|/).slice(1, nums.length);
+    let ans: number[] = [nums[0]]
+    let i: number = 0
 
     if (value[0] === "-") {
-      number.shift()
-      number[0] *= -1;
+      nums.shift()
+      nums[0] *= -1;
       operator.pop()
-      ans = [number[0]]
+      ans = [nums[0]]
     }
 
     while (i < operator.length) {
-      console.log(operator[i])
       if (operator[i].match(/[×÷]/)) {
-        let prev: any = ans.pop()
-        operator[i] === "×" ? ans.push(prev * number[i+1]) : ans.push(prev/number[i+1])
+        let prev: number = ans.pop() || 0
+        operator[i] === "×" ? ans.push(prev * nums[i+1]) : ans.push(prev / nums[i+1])
       } else {
-        ans.push(number[i+1])
+        ans.push(nums[i+1])
       }
       i++;
     } 
